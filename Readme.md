@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://snx-merge.surge.sh">
-    <img src="https://snx-merge.surge.sh/screenshot.png" alt="snx-merge" />
+    <img src="https://snx-merge.surge.sh/shot.png" alt="snx-merge" />
   </a>
 </div>
 

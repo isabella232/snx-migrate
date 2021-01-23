@@ -10,6 +10,10 @@ export const INFO_COLOR = '#2196f3';
 export const SUCCESS_COLOR = '#43a047';
 export const DANGER_COLOR = '#d32f2f';
 
+export const SECONDARY_COLOR = 'rgb(53, 197, 243)';
+
 export const INFURA_ID = process.env.REACT_APP_INFURA_ID;
 
 export const IS_DEV = window.location.hostname === 'localhost';
+
+export const ROUTER_BASE_NAME = '';

@@ -1,5 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import { BORDER_RADIUS } from 'config';
+import { BORDER_RADIUS, SECONDARY_COLOR } from 'config';
 
 export default createMuiTheme({
   typography: {
@@ -7,6 +7,7 @@ export default createMuiTheme({
   },
   palette: {
     type: 'dark',
+    isDark: true,
     background: {
       default: 'rgb(6, 6, 27)',
       paper: 'rgb(16, 16, 78)',
@@ -15,7 +16,7 @@ export default createMuiTheme({
       main: '#ffffff',
     },
     secondary: {
-      main: 'rgb(53, 197, 243)',
+      main: SECONDARY_COLOR,
     },
   },
   overrides: {
