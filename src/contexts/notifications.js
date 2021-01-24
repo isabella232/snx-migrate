@@ -38,10 +38,15 @@ export function NotificationsProvider({ children }) {
     );
 
   const tx = async (startNotification, endNotification, makeTx) => {
-    const { hash, wait } = await makeTx();
-    showTxNotification(startNotification, hash);
-    await wait();
-    showSuccessNotification(endNotification, hash);
+    try {
+      const { hash, wait } = await makeTx();
+      showTxNotification(startNotification, hash);
+      await wait();
+      showSuccessNotification(endNotification, hash);
+    } catch (e) {
+      showErrorNotification(e);
+      throw e;
+    }
   };
 
   return (

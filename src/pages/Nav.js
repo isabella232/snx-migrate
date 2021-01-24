@@ -6,10 +6,7 @@ import { Box } from '@material-ui/core';
 import { BORDER_RADIUS, SECONDARY_COLOR } from 'config';
 
 const useStyles = makeStyles(theme => ({
-  container: {
-    borderTopLeftRadius: BORDER_RADIUS,
-    borderTopRightRadius: BORDER_RADIUS,
-  },
+  container: {},
   tab: {
     color: theme.palette.primary.main,
     textDecoration: 'none',

@@ -26,7 +26,7 @@ export default createMuiTheme({
       },
     },
     MuiPaper: {
-      paper: {
+      rounded: {
         borderRadius: BORDER_RADIUS,
       },
     },

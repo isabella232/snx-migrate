@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Paper } from '@material-ui/core';
-import { ROUTER_BASE_NAME, BORDER_RADIUS } from 'config';
+import { ROUTER_BASE_NAME } from 'config';
 import { useWallet } from 'contexts/wallet';
 import Loader from 'components/Loader';
 import Header from './Header';
@@ -28,9 +28,6 @@ const useStyles = makeStyles(theme => ({
       width: 'auto',
     },
   },
-  paper: {
-    borderRadius: BORDER_RADIUS,
-  },
 }));
 
 export default function App() {
@@ -41,7 +38,7 @@ export default function App() {
       <Router basename={ROUTER_BASE_NAME}>
         <Header />
 
-        <Paper className={classes.paper}>
+        <Paper>
           <Nav />
           <Box p={4}>
             {!walletIsLoaded ? (

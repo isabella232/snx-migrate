@@ -69,23 +69,36 @@ export default function() {
       : null;
   }, [destinationAccountAddress]);
 
+  const readyForMerge = React.useMemo(
+    () =>
+      !isWorking &&
+      !!sourceAccountAddress &&
+      !sourceAccountHasDebt &&
+      hasNominatedDestinationAccount,
+    [
+      isWorking,
+      sourceAccountAddress,
+      sourceAccountHasDebt,
+      hasNominatedDestinationAccount,
+    ]
+  );
+
   const connectOrApproveOrBurnOrNominate = async () => {
     if (!sourceAccountAddress) return startConnectingWallet();
-    if (!destinationAccountAddress)
-      return showErrorNotification('Enter destination account address...');
 
     if (sourceAccountHasDebt) {
       const sUSDBalance = await sUSDContract.balanceOf(sourceAccountAddress);
       if (sUSDBalance.lt(sourceAccountSUSDDebtBalance)) {
         const requiredSUSDTopUp = sourceAccountSUSDDebtBalance.sub(sUSDBalance);
         return showErrorNotification(
-          `You will need to acquire an additional ${formatUnits(
+          `You need to acquire an additional ${formatUnits(
             requiredSUSDTopUp,
             18,
             2
-          )}SUSD in order to fully burn your debt.`
+          )} sUSD in order to fully burn your debt.`
         );
       }
+
       setIsWorking('Burning debt...');
       try {
         await tx('Burning the debt...', 'Burnt!', () =>
@@ -97,13 +110,13 @@ export default function() {
           config.sUSDCurrency
         );
         setSourceAccountSUSDDebtBalance(sUSDDebtBalance);
-      } catch (e) {
-        showErrorNotification(e);
       } finally {
         setIsWorking(null);
       }
-      return;
     }
+
+    if (!destinationAccountAddress)
+      return showErrorNotification('Enter destination account address...');
 
     if (destinationAccountAddress !== nominatedAccountAddress) {
       setIsWorking('Nominating account...');
@@ -113,12 +126,9 @@ export default function() {
             destinationAccountAddress
           )
         );
-      } catch (e) {
-        showErrorNotification(e);
       } finally {
         setIsWorking(null);
       }
-      return;
     }
   };
 
@@ -242,9 +252,16 @@ export default function() {
 
       {!sourceAccountHasDebt ? null : (
         <Box className={clsx('text-center')} mb={3}>
-          You have an active balance of ≈$
-          {formatUnits(sourceAccountSUSDDebtBalance, 18, 2)}, that you will need
-          to burn in order for the nominated account to proceed with the merge.
+          You have a debt of {formatUnits(sourceAccountSUSDDebtBalance, 18, 2)}{' '}
+          sUSD, that you will need to burn in order for the nominated account to
+          proceed with the merge.
+        </Box>
+      )}
+
+      {!readyForMerge ? null : (
+        <Box className={clsx('text-center')} mb={3}>
+          On the Merge tab, switch to the nominated account in your wallet and
+          proceed with the merge.
         </Box>
       )}
 

@@ -23,7 +23,7 @@ export default function() {
     address: destinationAccountAddress,
     rewardEscrowV2Contract,
   } = useWallet();
-  const { showErrorNotification, tx } = useNotifications();
+  const { tx, showErrorNotification } = useNotifications();
   const [isWorking, setIsWorking] = React.useState(null);
   const [sourceAccountAddress, setSourceAccountAddress] = React.useState('');
   const [nominatedAccountAddress, setNominatedAccountAddress] = React.useState(
@@ -62,27 +62,28 @@ export default function() {
   }, [destinationAccountAddressIsNominated]);
 
   const connectOrApproveOrMerge = async () => {
-    if (!sourceAccountAddress) return startConnectingWallet();
+    if (!destinationAccountAddress) return startConnectingWallet();
+
+    if (!sourceAccountAddress)
+      return showErrorNotification('Enter source account address...');
 
     setIsWorking('Merging account...');
+    const numVestingEntries = await rewardEscrowV2Contract.numVestingEntries(
+      sourceAccountAddress
+    );
+    const entryIDs = numVestingEntries.isZero()
+      ? []
+      : await rewardEscrowV2Contract.getAccountVestingEntryIDs(
+          sourceAccountAddress,
+          0,
+          numVestingEntries
+        );
     try {
-      const numVestingEntries = await rewardEscrowV2Contract.numVestingEntries(
-        sourceAccountAddress
-      );
-      const entryIDs = numVestingEntries.isZero()
-        ? []
-        : await rewardEscrowV2Contract.getAccountVestingEntryIDs(
-            sourceAccountAddress,
-            0,
-            numVestingEntries
-          );
       await tx('Merging account...', 'Merged!', () =>
         rewardEscrowV2Contract.mergeAccount(sourceAccountAddress, entryIDs)
       );
-      // setHasMergedAccount(true);
-    } catch (e) {
-      showErrorNotification(e);
     } finally {
+      // setHasMergedAccount(true);
       setIsWorking(null);
     }
   };
