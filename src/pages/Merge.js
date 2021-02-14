@@ -79,9 +79,12 @@ export default function() {
           numVestingEntries
         );
     try {
-      await tx('Merging account...', 'Merged!', () =>
-        rewardEscrowV2Contract.mergeAccount(sourceAccountAddress, entryIDs)
-      );
+      await tx('Merging account...', 'Merged!', () => [
+        rewardEscrowV2Contract,
+        'mergeAccount',
+        [sourceAccountAddress, entryIDs],
+      ]);
+    } catch {
     } finally {
       // setHasMergedAccount(true);
       setIsWorking(null);

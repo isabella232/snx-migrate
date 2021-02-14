@@ -101,15 +101,18 @@ export default function() {
 
       setIsWorking('Burning debt...');
       try {
-        await tx('Burning the debt...', 'Burnt!', () =>
-          synthetixContract.burnSynths(sourceAccountAddress)
-        );
+        await tx('Burning the debt...', 'Burnt!', () => [
+          synthetixContract,
+          'burnSynths',
+          [sourceAccountAddress],
+        ]);
 
         const sUSDDebtBalance = await issuerContract.debtBalanceOf(
           sourceAccountAddress,
           config.sUSDCurrency
         );
         setSourceAccountSUSDDebtBalance(sUSDDebtBalance);
+      } catch {
       } finally {
         setIsWorking(null);
       }
@@ -121,11 +124,12 @@ export default function() {
     if (destinationAccountAddress !== nominatedAccountAddress) {
       setIsWorking('Nominating account...');
       try {
-        await tx('Nominating account to merge...', 'Nominated!', () =>
-          rewardEscrowV2Contract.nominateAccountToMerge(
-            destinationAccountAddress
-          )
-        );
+        await tx('Nominating account to merge...', 'Nominated!', () => [
+          rewardEscrowV2Contract,
+          'nominateAccountToMerge',
+          [destinationAccountAddress],
+        ]);
+      } catch {
       } finally {
         setIsWorking(null);
       }
