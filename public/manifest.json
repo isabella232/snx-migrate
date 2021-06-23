@@ -1,15 +1,9 @@
 {
-  "name": "Synthetix",
-  "description": "Synthetix | Merge Accounts",
+  "short_name": "SNX merge account",
+  "name": "SNX merge account",
+  "description": "SNX merge account",
   "iconPath": "/images/synthetix-logo.svg",
-  "providedBy": { "name": "Synthetix", "url": "https://snx-merge.surge.sh" },
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64",
-      "type": "image/png"
-    }
-  ],
+  "providedBy": { "name": "SNX merge account", "url": "https://snx-merge.surge.sh" },
   "start_url": "./index.html",
   "display": "standalone"
 }
