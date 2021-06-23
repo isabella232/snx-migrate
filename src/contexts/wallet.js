@@ -1,6 +1,6 @@
 import React from 'react';
 import { ethers } from 'ethers';
-import Onboard from 'bnc-onboard';
+import Onboard from '@gnosis.pm/safe-apps-onboard';
 import { CACHE_WALLET_KEY, INFURA_ID } from 'config';
 import cache from 'utils/cache';
 import NETWORKS from 'networks.json';
@@ -18,6 +18,7 @@ const WALLETS = [
     infuraKey: INFURA_ID,
     preferred: true,
   },
+  { walletName: 'gnosis' },
 ];
 
 const WalletContext = React.createContext(null);

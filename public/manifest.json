@@ -1,6 +1,8 @@
 {
   "name": "Synthetix",
   "description": "Synthetix | Merge Accounts",
+  "iconPath": "/images/synthetix-logo.svg",
+  "providedBy": { "name": "Synthetix", "url": "https://snx-merge.surge.sh" },
   "icons": [
     {
       "src": "favicon.ico",
