@@ -2,7 +2,7 @@
   "short_name": "SNX merge account",
   "name": "SNX merge account",
   "description": "SNX merge account",
-  "iconPath": "/images/synthetix-logo.svg",
+  "iconPath": "images/synthetix-logo.svg",
   "providedBy": { "name": "SNX merge account", "url": "https://snx-merge.surge.sh" },
   "start_url": "./index.html",
   "display": "standalone"
